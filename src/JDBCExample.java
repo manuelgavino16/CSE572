@@ -1,5 +1,3 @@
-package cse572_jdbc;
-
 import java.sql.* ;
 
 public class JDBCExample {
