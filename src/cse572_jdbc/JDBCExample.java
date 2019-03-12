@@ -1,0 +1,38 @@
+package cse572_jdbc;
+
+import java.sql.* ;
+
+public class JDBCExample {
+	
+	 public static void main(String args[]) {
+		 
+		 try{  
+ 	    	//step1 load the driver class  
+ 			Class.forName("oracle.jdbc.driver.OracleDriver") ;
+ 			//Class.forName(dbprop.getProperty("jdbc.driverClassName")) ;
+   
+ 			//step2 create  the connection object    
+ 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@192.168.95.144:1521:xe", "slin", "password") ;
+   
+ 			//step3 create the statement object
+ 			String query = "select employee_id, first_name, last_name, email, phone_number, salary from hr.employees" ;
+ 			PreparedStatement pstmt_employees = con.prepareStatement(query) ;
+   
+ 			//step4 execute query  
+ 			//ResultSet rs_users=stmt_users.executeQuery("select user_id, employee_id, first_name, last_name, email_address, postal_cd, birthdate, date_password_changed, create_date  from users where employee_id = '" + employee_id + "'") ;
+ 			ResultSet rs_employees = pstmt_employees.executeQuery() ;
+ 			    					
+ 			while (rs_employees.next()){
+ 				
+ 				System.out.println("Employee ID:" + rs_employees.getString(1)) ;
+ 				System.out.println("Name: " + rs_employees.getString(3) + ", " + rs_employees.getString(2)) ;
+ 				System.out.println("Email: " + rs_employees.getString(4)) ;
+ 				System.out.println("Phone Number: " + rs_employees.getString(5)) ;
+ 				System.out.println("Salary: " + rs_employees.getString(6) + "\n") ;
+ 				
+ 			} 
+		 } catch(Exception e){ System.out.println(e);}	
+ 
+	 }
+
+}
